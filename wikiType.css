@@ -1,0 +1,50 @@
+body {
+    background-color: #fffffd;
+    font-family: 'Quicksand';
+}
+
+input {
+    font-family: 'Quicksand';
+}
+
+#type {
+    border-style: solid;
+}
+
+.focus {
+    background-color: darkgray;
+}
+
+.correct {
+    background-color: rgb(150, 255, 44);
+}
+
+.wrong {
+    background-color: crimson;
+}
+
+div {
+    font-size: 1.5em;
+}
+
+h1 {
+    text-transform: uppercase;
+    font-size: 60px;
+    top: 0;
+    margin: 14px 0px 0px 10px;
+}
+
+hr {
+    border-width: 3px;
+    border-style: solid;
+    border-color: #181818;
+    border-radius: 3px;
+    width: 70%;
+    margin-left: 0;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 26px;
+    margin: 20px 0 0 10px;
+}
