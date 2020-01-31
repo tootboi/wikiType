@@ -9,6 +9,20 @@ input {
 
 #type {
     border-style: solid;
+    padding: 1px;
+}
+
+#search {
+    margin: 10px;
+}
+
+#search input {
+    height: 20px;
+}
+
+#search button {
+    height: 28px;
+    padding-top: 10px;
 }
 
 .focus {
