@@ -74,17 +74,21 @@ $(document).ready(function() {
             //this prevents browswer shortcuts like ' to pop up.
             e.preventDefault();
             e.stopPropagation();
-            //console.log(charIndex);
-            //console.log(e.keyCode);
             
             if (String.fromCharCode(e.keyCode) == $("#"+charIndex).html()) { //for correct
-                //remove all classes
-                $("#" + charIndex).removeClass();
-                //add green correct class on character
-                $("#" + charIndex).addClass("correct");
+                if ($("#" + charIndex).hasClass("wasWrong")) { //has been wrong
+                    //remove focus class
+                    $("#" + charIndex).removeClass("focus");
+                    //change background-color of span
+                    $("#" + charIndex).css("background-color", "rgb(255, 255, 58)");
+                } else { //never been wrong
+                    //remove all classes
+                    $("#" + charIndex).removeClass();
+                    //add green correct class on character
+                    $("#" + charIndex).addClass("correct");
+                }
                 charIndex += 1;
-                //remove all classes
-                $("#" + charIndex).removeClass();
+
                 //add focus to next character
                 $("#" + charIndex).addClass("focus");
                 //for completion
@@ -92,9 +96,6 @@ $(document).ready(function() {
                     //stop timer
                     totTime += (new Date - start);
                     finalTime = totTime;
-                    //console.log(wordCount);
-                    //console.log(finalTime / 1000 + " seconds");
-                    //alert(Math.floor((60/(finalTime / 1000)) * wordCount) + " wpm");
                     $("#result").html(Math.floor((60/(finalTime / 1000)) * wordCount) + " wpm");
                 }
             } else {                                                         //for wrong
@@ -110,25 +111,35 @@ $(document).ready(function() {
                     //stop timer
                     totTime += (new Date - start);
                     finalTime = totTime;
-                    //console.log(wordCount);
-                    //console.log(finalTime / 1000 + " seconds");
-                    //alert(Math.floor((60/(finalTime / 1000)) * wordCount) + " wpm");
                     $("#result").html(Math.floor((60/(finalTime / 1000)) * wordCount) + " wpm");
                 }
             }
         });
 
        $("#type").keydown(function(e) {
-            if (e.keyCode == 8) {                                    //for backspace
+           //for backspace
+            if (e.keyCode == 8) {
                 //this prevent firefox from going back a page
                 e.preventDefault();
                 if (charIndex > 0) {
-                    //remove all classes
-                    $("#" + charIndex).removeClass();
+                    //remove focus class
+                    $("#" + charIndex).removeClass("focus");
                     charIndex -= 1;
-                    //remove all classes
-                    $("#" + charIndex).removeClass();
-                    $("#" + charIndex).addClass("focus");
+                    //for determining wasWrong
+                    if ($("#" + charIndex).hasClass("wrong") || $("#" + charIndex).hasClass("wasWrong")) { 
+                        $("#" + charIndex).css("background-color", "");
+                        //remove all classes
+                        $("#" + charIndex).removeClass();
+                        //add wasWrong class
+                        $("#" + charIndex).addClass("wasWrong");
+                        //add focus
+                        $("#" + charIndex).addClass("focus");
+                    } else {
+                        $("#" + charIndex).css("background-color", "");
+                        //remove all classes
+                        $("#" + charIndex).removeClass();
+                        $("#" + charIndex).addClass("focus");
+                    }
                 }
             }
         });
@@ -138,7 +149,6 @@ $(document).ready(function() {
             if (firstKey == false) {
                 start = new Date;
             }
-            //console.log("focusin");
         });
 
         $("#type").focusout(function(){

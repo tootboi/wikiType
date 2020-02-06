@@ -34,7 +34,7 @@ input {
 }
 
 .wrong {
-    background-color: crimson;
+    background-color: rgb(231, 20, 62);
 }
 
 div {
