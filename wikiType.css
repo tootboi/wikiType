@@ -25,6 +25,10 @@ input {
     padding-top: 10px;
 }
 
+#result {
+    font-size: 1em;
+}
+
 .focus {
     background-color: darkgray;
 }

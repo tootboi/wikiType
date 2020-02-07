@@ -19,7 +19,9 @@ $(document).ready(function() {
         finalTime = 0;
         //clear the div
         $("#type").empty();
-        $("#result").empty();
+        $("#wpm").empty();
+        $("#accuracy").empty();
+        $("#fixes").empty();
 
         var title = $("#title").val();
         var url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + title;
@@ -30,7 +32,7 @@ $(document).ready(function() {
                 //counts how many words there are. Counts number of whitespaces, then + 1.
                 var regex = new RegExp(/\s/g);
                 wordCount = response.extract.match(regex).length + 1;
-                //console.log(wordCount);
+                //creats spans
                 jQuery.map((response.extract + "").split(""), function(n) {
                     if (n.charCodeAt() != 10) {
                         $("#type").append("<span id="+spanId+">"+n+"</span>");
@@ -96,7 +98,11 @@ $(document).ready(function() {
                     //stop timer
                     totTime += (new Date - start);
                     finalTime = totTime;
-                    $("#result").html(Math.floor((60/(finalTime / 1000)) * wordCount) + " wpm");
+                    var wrongs = $(".wrong").length;
+                    var wasWrongs = $(".wasWrong").length;
+                    $("#wpm").html(Math.floor((60/(finalTime / 1000)) * wordCount) + " wpm");
+                    $("#accuracy").html(((spanId-wrongs)/spanId * 100).toFixed(1) + "% accuracy (" + wrongs + " wrong/s out of " + spanId + " characters)");
+                    $("#fixes").html(wasWrongs + " fixes");
                 }
             } else {                                                         //for wrong
                 //remove all classes
@@ -111,7 +117,11 @@ $(document).ready(function() {
                     //stop timer
                     totTime += (new Date - start);
                     finalTime = totTime;
-                    $("#result").html(Math.floor((60/(finalTime / 1000)) * wordCount) + " wpm");
+                    var wrongs = $(".wrong").length;
+                    var wasWrongs = $(".wasWrong").length;
+                    $("#wpm").html(Math.floor((60/(finalTime / 1000)) * wordCount) + " wpm");
+                    $("#accuracy").html(((spanId-wrongs)/spanId * 100).toFixed(1) + "% accuracy (" + wrongs + " wrong/s out of " + spanId + " characters)");
+                    $("#fixes").html(wasWrongs + " fixes");
                 }
             }
         });
