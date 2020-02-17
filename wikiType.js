@@ -1,5 +1,10 @@
-
 $(document).ready(function() {
+    $("label input").click(function(){
+        $("body").toggleClass("nightmode");
+        $("#title").toggleClass("nightmode");
+        $("button").toggleClass("nightmode");
+    });
+
     //variable
     var wordCount = 0;
     var totTime = 0;
